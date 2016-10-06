@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import marked from 'marked';
 
 class App extends Component {
   constructor(props) {
@@ -9,11 +10,11 @@ class App extends Component {
   }
 
   handleSource (event) {
-    this.setState({ value: event.target.value }); 
+    this.setState({ value: event.target.value });
   }
 
   setOutput () {
-    return { __html: `${this.state.value}` };
+    return { __html: marked(this.state.value) };
   }
 
   render() {
@@ -21,10 +22,10 @@ class App extends Component {
       <div className="App">
         <h1>GitHub Markup Previewer</h1>
         <h3>Source</h3>
-        <textarea 
-          type="text" 
-          defaultValue={this.state.value} 
-          onChange={this.handleSource.bind(this)} 
+        <textarea
+          type="text"
+          defaultValue={this.state.value}
+          onChange={this.handleSource.bind(this)}
         />
         <h3>Output</h3>
         <div dangerouslySetInnerHTML={this.setOutput()} />
